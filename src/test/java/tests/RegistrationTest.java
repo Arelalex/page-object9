@@ -12,9 +12,11 @@ public class RegistrationTest extends TestBase {
     private final String emailInvalid = "alex123"; // невалидный email
     private final String gender = "Female";
     private final String mobile = "1234567890";
-    private final String day = "27";
+    private final String day = "1";
     private final String month = "August";
     private final String year = "1989";
+    private final String symbol1 = "M";
+    private final String symbol2 = "C";
     private final String subject1 = "Computer Science";
     private final String subject2 = "Civics";
     private final String hobbies1 = "Reading";
@@ -31,14 +33,17 @@ public class RegistrationTest extends TestBase {
     void successfulFillFormTest() {
         //заполнение формы
         registrationPage.openPage()
+                .deleteBanners()
                 .setFirstName(firstName)
                 .setLastName(secondName)
                 .setUserEmail(email)
-                .setGender(gender)
+                .setGenderOrHobbies(gender)
                 .setUserNumber(mobile)
                 .setDateOfBirth(day, month, year)
-                .setSubjects(subject1, subject2)
-                .setHobbies()
+                .setSubjects(symbol1, subject1)
+                .setSubjects(symbol2, subject2)
+                .setGenderOrHobbies(hobbies1)
+                .setGenderOrHobbies(hobbies2)
                 .uploadPicture(picture)
                 .setCurrentAddress(address)
                 .setStateSelect(state)
@@ -51,7 +56,7 @@ public class RegistrationTest extends TestBase {
                 .checkResult("Student Email", email)
                 .checkResult("Gender", gender)
                 .checkResult("Mobile", mobile)
-                .checkResult("Date of Birth", day + " " + month + "," + year)
+                .checkResult("Date of Birth", registrationPage.addZeroWithDateWithOneChar(day) + " " + month + "," + year)
                 .checkResult("Subjects", subject1 + ", " + subject2)
                 .checkResult("Hobbies", hobbies1 + ", " + hobbies2)
                 .checkResult("Picture", picture)
@@ -66,6 +71,7 @@ public class RegistrationTest extends TestBase {
     void emptyFillFormTest() {
         //отправить пустую форму
         registrationPage.openPage()
+                .deleteBanners()
                 .submit();
 
         // check
@@ -78,14 +84,17 @@ public class RegistrationTest extends TestBase {
     void invalidFillFormTest() {
         // заполнение формы
         registrationPage.openPage()
+                .deleteBanners()
                 .setFirstName(firstName)
                 .setLastName(secondName)
                 .setUserEmail(emailInvalid)
-                .setGender(gender)
+                .setGenderOrHobbies(gender)
                 .setUserNumber(mobile)
                 .setDateOfBirth(day, month, year)
-                .setSubjects(subject1, subject2)
-                .setHobbies()
+                .setSubjects(symbol1, subject1)
+                .setSubjects(symbol2, subject2)
+                .setGenderOrHobbies(hobbies1)
+                .setGenderOrHobbies(hobbies2)
                 .uploadPicture(picture)
                 .setCurrentAddress(address)
                 .setStateSelect(state)

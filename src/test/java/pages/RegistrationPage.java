@@ -14,17 +14,14 @@ public class RegistrationPage {
     CalendarComponent calendar = new CalendarComponent();
     CheckResultComponent results = new CheckResultComponent();
     String stateAndCity = "//*[text()='%s']";
+    String genderOrHobbies = "//label[text()='%s']";
+    String subjects = "//div[text()='%s']";
     SelenideElement titleLabel = $x("//*[contains(text(),'Student Registration Form')]"),
             firstNameInput = $x("//input[@id='firstName']"),
             lastNameInput = $x("//input[@id='lastName']"),
             userEmailInput = $x("//*[@id='userEmail']"),
-            genderLabel = $x("//label[@for='gender-radio-2']"),
             userNumberInput = $x("//*[@id='userNumber']"),
             subjectInput = $x("//*[@id='subjectsInput']"),
-            subjectSelectFirst = $x("//*[@id='react-select-2-option-2']"),
-            subjectSelectSecond = $x("//*[@id='react-select-2-option-7']"),
-            hobbiesCheckboxFirst = $x("//label[@for='hobbies-checkbox-2']"),
-            hobbiesCheckboxSecond = $x("//label[@for='hobbies-checkbox-3']"),
             uploadPicture = $x("//input[@id='uploadPicture']"),
             currentAddressTextarea = $x("//textarea[@id='currentAddress']"),
             stateSelect = $x("//*[@id='state']"),
@@ -35,6 +32,11 @@ public class RegistrationPage {
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         titleLabel.shouldHave(text("Student Registration Form"));
+
+        return this;
+    }
+
+    public RegistrationPage deleteBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
@@ -59,8 +61,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setGender(String value) {
-        genderLabel.click();
+    public RegistrationPage setGenderOrHobbies(String value) {
+        $x(String.format(genderOrHobbies, value)).click();
 
         return this;
     }
@@ -77,19 +79,10 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setSubjects(String subjectFirst, String subjectSecond) {
+    public RegistrationPage setSubjects(String symbol, String subject) {
         subjectInput.click();
-        subjectInput.setValue("M");
-        subjectSelectFirst.click();
-        subjectInput.setValue("C");
-        subjectSelectSecond.click();
-
-        return this;
-    }
-
-    public RegistrationPage setHobbies() {
-        hobbiesCheckboxFirst.click();
-        hobbiesCheckboxSecond.click();
+        subjectInput.setValue(symbol);
+        $x(String.format(subjects, subject)).click();
 
         return this;
     }
@@ -150,4 +143,11 @@ public class RegistrationPage {
         return this;
     }
 
+    public String addZeroWithDateWithOneChar(String day) {
+        if (Integer.parseInt(day) < 10) {
+            day = "0" + day;
+            return day;
+        }
+        return day;
+    }
 }

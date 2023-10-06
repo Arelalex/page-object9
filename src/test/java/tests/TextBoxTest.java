@@ -22,6 +22,7 @@ public class TextBoxTest extends TestBase {
     @DisplayName("Successful fill form Text Box")
     void successfulFillTextBoxFormTest() {
         textBoxTest.openPage()
+                .deleteBanners()
                 .setFullName(fullName)
                 .setEmail(email)
                 .setCurrentAddress(currentAddress)
@@ -40,6 +41,7 @@ public class TextBoxTest extends TestBase {
     @DisplayName("Submitting an empty form - Negative")
     void sendEmptyTextBoxFormTest() {
         textBoxTest.openPage()
+                .deleteBanners()
                 .clickSubmit();
 
         // check
@@ -51,6 +53,7 @@ public class TextBoxTest extends TestBase {
     @DisplayName("Submitting a form with empty fields - Negative")
     void sendTextBoxFormWithEmptyFieldsTest() {
         textBoxTest.openPage()
+                .deleteBanners()
                 .setFullName(fullName)
                 .setCurrentAddress(currentAddress)
                 .clickSubmit();

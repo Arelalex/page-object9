@@ -19,6 +19,11 @@ public class TextBoxTestPage {
     // actions
     public TextBoxTestPage openPage() {
         open("/text-box");
+
+        return this;
+    }
+
+    public TextBoxTestPage deleteBanners (){
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
