@@ -146,8 +146,8 @@ public class RegistrationPage {
     public String addZeroWithDateWithOneChar(String day) {
         if (Integer.parseInt(day) < 10) {
             day = "0" + day;
-            return day;
         }
+
         return day;
     }
 }
