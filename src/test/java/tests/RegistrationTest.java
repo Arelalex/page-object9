@@ -27,7 +27,6 @@ public class RegistrationTest extends TestBase {
     private final String city = "Merrut";
     RegistrationPage registrationPage = new RegistrationPage();
 
-    // успешное заполнение формы
     @Test
     @DisplayName("Successful fill form registration")
     void successfulFillFormTest() {
@@ -37,13 +36,13 @@ public class RegistrationTest extends TestBase {
                 .setFirstName(firstName)
                 .setLastName(secondName)
                 .setUserEmail(email)
-                .setGenderOrHobbies(gender)
+                .setGender(gender)
                 .setUserNumber(mobile)
                 .setDateOfBirth(day, month, year)
                 .setSubjects(symbol1, subject1)
                 .setSubjects(symbol2, subject2)
-                .setGenderOrHobbies(hobbies1)
-                .setGenderOrHobbies(hobbies2)
+                .setHobbies(hobbies1)
+                .setHobbies(hobbies2)
                 .uploadPicture(picture)
                 .setCurrentAddress(address)
                 .setStateSelect(state)
@@ -65,7 +64,6 @@ public class RegistrationTest extends TestBase {
                 .checkResult("State and City", state + " " + city);
     }
 
-    // отправка пустой формы
     @Test
     @DisplayName("Submitting an empty form - Negative")
     void emptyFillFormTest() {
@@ -78,7 +76,6 @@ public class RegistrationTest extends TestBase {
         registrationPage.checkNotTitle();
     }
 
-    // заполнение формы с невалидным email
     @Test
     @DisplayName("Fill form with invalid email - Negative")
     void invalidFillFormTest() {
@@ -88,13 +85,13 @@ public class RegistrationTest extends TestBase {
                 .setFirstName(firstName)
                 .setLastName(secondName)
                 .setUserEmail(emailInvalid)
-                .setGenderOrHobbies(gender)
+                .setGender(gender)
                 .setUserNumber(mobile)
                 .setDateOfBirth(day, month, year)
                 .setSubjects(symbol1, subject1)
                 .setSubjects(symbol2, subject2)
-                .setGenderOrHobbies(hobbies1)
-                .setGenderOrHobbies(hobbies2)
+                .setHobbies(hobbies1)
+                .setHobbies(hobbies2)
                 .uploadPicture(picture)
                 .setCurrentAddress(address)
                 .setStateSelect(state)

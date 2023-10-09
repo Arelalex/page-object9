@@ -14,7 +14,8 @@ public class RegistrationPage {
     CalendarComponent calendar = new CalendarComponent();
     CheckResultComponent results = new CheckResultComponent();
     String stateAndCity = "//*[text()='%s']";
-    String genderOrHobbies = "//label[text()='%s']";
+    String gender = "//label[text()='%s']";
+    String hobbies = "//label[text()='%s']";
     String subjects = "//div[text()='%s']";
     SelenideElement titleLabel = $x("//*[contains(text(),'Student Registration Form')]"),
             firstNameInput = $x("//input[@id='firstName']"),
@@ -61,8 +62,14 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setGenderOrHobbies(String value) {
-        $x(String.format(genderOrHobbies, value)).click();
+    public RegistrationPage setGender(String value) {
+        $x(String.format(gender, value)).click();
+
+        return this;
+    }
+
+    public RegistrationPage setHobbies(String value) {
+        $x(String.format(hobbies, value)).click();
 
         return this;
     }
