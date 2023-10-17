@@ -1,11 +1,13 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 import pages.components.CheckResultComponent;
 
+import java.util.Random;
+
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
@@ -16,7 +18,8 @@ public class RegistrationPage {
     String stateAndCity = "//*[text()='%s']";
     String gender = "//label[text()='%s']";
     String hobbies = "//label[text()='%s']";
-    String subjects = "//div[text()='%s']";
+    String subjectsCollection = "//div[contains(@class, 'menu-list')]/div";
+    String cityCollection = "//div[contains(@class, ' css-11unzgr')]/div";
     SelenideElement titleLabel = $x("//*[contains(text(),'Student Registration Form')]"),
             firstNameInput = $x("//input[@id='firstName']"),
             lastNameInput = $x("//input[@id='lastName']"),
@@ -28,6 +31,7 @@ public class RegistrationPage {
             stateSelect = $x("//*[@id='state']"),
             citySelect = $x("//div[@class=' css-1wa3eu0-placeholder']"),
             submitButton = $x("//button[@id='submit']");
+
 
     //Actions
     public RegistrationPage openPage() {
@@ -68,28 +72,30 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setHobbies(String value) {
-        $x(String.format(hobbies, value)).click();
-
-        return this;
-    }
-
     public RegistrationPage setUserNumber(String value) {
         userNumberInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPage setDateOfBirth(String day, String month, String year) {
-        calendar.setDate(day, month, year);
+    public String setRandomSubject(String symbol) {
 
-        return this;
-    }
-
-    public RegistrationPage setSubjects(String symbol, String subject) {
         subjectInput.click();
         subjectInput.setValue(symbol);
-        $x(String.format(subjects, subject)).click();
+
+        Random random = new Random();
+        ElementsCollection actualSubject =
+                $$x(subjectsCollection);
+        int randomIndex = random.nextInt(actualSubject.size());
+
+        String subject = actualSubject.get(randomIndex).getText();
+        actualSubject.get(randomIndex).click();
+
+        return subject;
+    }
+
+    public RegistrationPage setHobbies(String value) {
+        $x(String.format(hobbies, value)).click();
 
         return this;
     }
@@ -113,11 +119,19 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setCitySelect(String value) {
-        citySelect.click();
-        $x(String.format(stateAndCity, value)).click();
+    public String setRandomCity() {
 
-        return this;
+        citySelect.click();
+
+        Random random = new Random();
+        ElementsCollection actualCity =
+                $$x(cityCollection);
+        int randomIndex = random.nextInt(actualCity.size());
+
+        String city = actualCity.get(randomIndex).getText();
+        actualCity.get(randomIndex).click();
+
+        return city;
     }
 
     public RegistrationPage submit() {
@@ -132,20 +146,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage checkNotTitle() {
-        results.checkNotLabel("Thanks for submitting the form");
-
-        return this;
-    }
-
     public RegistrationPage checkResult(String key, String value) {
         results.checkData(key, value);
-
-        return this;
-    }
-
-    public RegistrationPage checkInvalidUserEmail(String email) {
-        userEmailInput.shouldHave(value(email));
 
         return this;
     }
