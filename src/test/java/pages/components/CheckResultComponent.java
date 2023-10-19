@@ -11,12 +11,16 @@ public class CheckResultComponent {
         $x("//*[contains(text(),'Thanks for submitting the form')]").shouldHave(text(value));
     }
 
-    public void checkNotLabel(String value) {
-        $x("//*[contains(text(),'Thanks for submitting the form')]").should(hidden);
-    }
-
     public void checkData(String key, String value) {
         String tablesValueXpath = "//td[text()='%s']/../td[text()='%s']";
         $x(String.format(tablesValueXpath, key, value)).shouldBe(visible);
+    }
+
+    public String addZeroWithDateWithOneChar(String day) {
+        if (Integer.parseInt(day) < 10) {
+            day = "0" + day;
+        }
+
+        return day;
     }
 }

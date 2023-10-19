@@ -1,13 +1,12 @@
 package tests;
 
 import com.github.javafaker.Faker;
-import pages.RegistrationPage;
 
 import java.util.Locale;
 
 public class TestData {
 
-    RegistrationPage registrationPage = new RegistrationPage();
+
     Faker faker = new Faker(new Locale("en"));
     String firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
@@ -17,12 +16,14 @@ public class TestData {
             month = faker.options().option("January", "February", "March",
                     "April", "May", "June", "July", "August", "September", "October",
                     "November", "December"),
-            symbol = faker.options().option("A", "B", "C", "E", "I", "O", "U", "Y",
-                    "D", "G", "H", "L", "M", "N", "P", "R", "S", "T", "V"),
+            subject = faker.options().option("Maths", "Chemistry", "Computer Science", "Commerce", "Economics"),
             hobbies = faker.options().option("Sports", "Reading", "Music"),
             picture = "10.jpg",
             address = faker.address().fullAddress(),
-            state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+            state = "NCR",
+            city = faker.options().option("Delhi", "Gurgaon", "Noida");
 
+    int day = faker.number().numberBetween(1, 28);
+    String daystr = String.valueOf(day);
     int year = faker.number().numberBetween(1900, 2010);
 }

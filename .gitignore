@@ -16,3 +16,4 @@ gradle.bat
 
 ### Logs ###
 *.log
+/gradlew.bat
