@@ -31,8 +31,8 @@ public class RegistrationTest extends TestBase {
                 .setHobbies(testData.hobbies)
                 .uploadPicture(testData.picture)
                 .setCurrentAddress(testData.address)
-                .setStateSelect(testData.state)
-                .setCitySelect(testData.city)
+                .setStateSelect(testData.stateRandom)
+                .setCitySelect(testData.cityRandom)
                 .submit();
 
         // check
@@ -46,8 +46,6 @@ public class RegistrationTest extends TestBase {
                 .checkResult("Hobbies", testData.hobbies)
                 .checkResult("Picture", testData.picture)
                 .checkResult("Address", testData.address)
-                .checkResult("State and City", testData.state + " " + testData.city);
+                .checkResult("State and City", testData.stateRandom + " " + testData.cityRandom);
     }
-
-
 }
